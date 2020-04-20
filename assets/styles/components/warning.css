@@ -1,0 +1,81 @@
+.warning-container {
+  position: absolute;
+  background-color: rgba(231, 231, 231, 0.788);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 100;
+  animation-name: fadeIn;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.43,.69,.79,1.38);
+}
+
+.warning {
+  padding: 30px;
+  width: 50%;
+  margin: 0 auto;
+  background-color: #726DA8;
+  position: absolute;
+  z-index: 800;
+  left: -50%;
+  top: 15%;
+  animation-name: slideIn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.43,.69,.62,1.28);
+}
+
+@keyframes slideIn {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 25%;
+  }
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.warning::after {
+  content: '';
+  display: table;
+  overflow: hidden;
+  clear: both;
+}
+
+.warning h2 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.warning p {
+  font-size: 20px;
+  line-height: 40px;
+  margin-bottom: 30px;
+}
+
+.warning button {
+  float: right;
+  width: 80px;
+  margin-left: 10px;
+  background-color: #2FBF71;
+}
+
+.warning .btn-cancel {
+  background-color: #D81E5B;
+}
+
+.warning button:hover {
+  cursor: pointer;
+}

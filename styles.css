@@ -1,0 +1,126 @@
+@font-face {
+  font-family: Nunito;
+  src: url(assets/fonts/Nunito-Regular.ttf);
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Nunito;
+  padding: 80px;
+}
+
+input {
+  border: 1px solid rgb(214, 213, 213);
+  border-radius: 10px;
+  padding: 10px;
+  margin-right: 20px;
+  font-size: 20px;
+  width: 100px;
+}
+
+button {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+h1, h2 {
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+#down-arrow {
+  transform: rotateX(180deg);
+  transition: all 0.2s;
+}
+
+.rotate {
+  transform: rotateX(0deg) !important;
+}
+
+.unrotate {
+  transform: rotateX(180deg) !important;
+}
+
+#down-arrow:hover {
+  cursor: pointer;
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+#inputs {
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgb(228, 228, 228);
+  overflow: hidden;
+  transition: all 0.2s;
+  transform-origin: 0 0;
+}
+
+input:focus {
+  outline: none;
+  border: 1.5px solid rgb(105, 208, 255);
+}
+
+label {
+  font-weight: bold;
+}
+
+/* color preview */
+
+#color-preview {
+  width: 20px;
+  height: 20px;
+  border: 1px solid gray;
+  border-radius: 100%;
+  background-color: white;
+  display: inline-block;
+}
+
+#board {
+ overflow: scroll;
+ margin: 0 auto;
+}
+
+#board tr, #board td {
+  border: 2px solid rgb(204, 204, 204);
+}
+
+#board td:hover {
+  cursor: pointer;
+  background-color: rgb(235, 235, 235);
+}
+
+/* animations */
+
+.show{
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.hide {
+  transform: scaleY(0);
+  opacity: 0;
+}
+
+@keyframes show {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
