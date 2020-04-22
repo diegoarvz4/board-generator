@@ -1,5 +1,6 @@
 import Grid from '../scripts/modules/grid.js';
 import warningComponent from '../scripts/components/warning.js';
+/* Config File */
 
 const initialConfig = {
   visible: true,
@@ -11,7 +12,11 @@ const initialConfig = {
 const toolConfig = {
   color: '#fff',
   droppable: false,
+  tcolor: '#fff',
+  tround: true,
 }
+
+/* Handler */
 
 const mouseHandler = {
   click: false,
@@ -20,13 +25,12 @@ const mouseHandler = {
 }
 
 const { rows, cols, cellSize } = initialConfig;
-const { color, droppable } = toolConfig;
+const { color, tcolor } = toolConfig;
 const grid = Grid(rows, cols, cellSize);
 
 // mouse click
 const clickTool = (event) => {
   if(!mouseHandler.click) {
-    console.log("Click")
     const element = event.target;
     element.style.backgroundColor = toolConfig.color;
     mouseHandler.click = !mouseHandler.click;
@@ -50,13 +54,15 @@ const upTool = () => {
 }
 
 // dragger
-
 const dragger = (event) => {
   event.preventDefault();
   //upTool();
 }
-const setBoard = (grid) => {
 
+
+/* UI Components */
+
+const setBoard = (grid) => {
   const board = document.getElementById('board');
   board.innerHTML='';
   for(let i = 0; i < grid.getRows(); i += 1) {
@@ -78,20 +84,28 @@ const setBoard = (grid) => {
   }
 }
 
+/* App Lifecycle Setup */
+
 setBoard(grid);
 
-const toggleDisplay = document.getElementById('down-arrow');
+/* UI Components */
 
+const toggleDisplay = document.getElementById('down-arrow');
 const inputRow = document.querySelector('input[name="row"]');
 const inputCol = document.querySelector('input[name="col"]');
 const inputCellSize = document.querySelector('input[name="cellSize"]');
 const inputColor = document.querySelector('input[name="color"]');
-
+const inputTColor = document.querySelector('input[name="tcolor"]');
+const inputTRound = document.querySelector('input[name="tround"]');
+/* DOM Setup */
 
 inputRow.value = rows;
 inputCol.value = cols;
 inputCellSize.value = cellSize;
 inputColor.value = color;
+inputTColor.value = tcolor;
+
+/* Events Setup */
 
 toggleDisplay.addEventListener('click', function(event) {
   const controls = document.getElementById('inputs');
@@ -143,10 +157,50 @@ btnReady.addEventListener('click', (event) => {
   btn.addEventListener('click', () => {
     container.remove();
     document.querySelector('#inputs').remove();
-    document.querySelector('h1').innerHTML = 'Play!'
+    document.querySelector('h1').innerHTML = 'Play!';
+    /* Delete event listeners */
+    const board = document.getElementById('board');
+    board.querySelectorAll('td').forEach((td) => {
+      td.removeEventListener('mousedown', clickTool);
+      td.removeEventListener('mouseover', enterTool);
+      td.removeEventListener('mouseup', upTool);
+      td.removeEventListener('dragstart', dragger); 
+      td.droppable = true;
+    })
   })
   btnCancel.addEventListener('click', () => {
     container.remove();
   })
   document.body.append(container);
+})
+
+/* TOKENS */
+
+const tokenColorInput = document.querySelector('input[name="tcolor"]');
+tokenColorInput.addEventListener('change', () => {
+  toolConfig.tcolor = event.target.value;
+  document.getElementById('tcolor-preview').style.backgroundColor = toolConfig.tcolor;
+})
+
+inputTRound.checked = toolConfig.tround;
+
+inputTRound.addEventListener('change', (e) => {
+  console.log(e.target.checked);
+  toolConfig.tround = !toolConfig.tround;
+})
+
+const btnToken = document.getElementById('addTokenBtn');
+btnToken.addEventListener('click', () => {
+  const token = document.createElement('span');
+  token.style.display = `inline-block`;
+  token.style.width = `${initialConfig.cellSize}px`;
+  token.style.height = `${initialConfig.cellSize}px`;
+  token.style.border = '1px solid black';
+  if(toolConfig.tround) {
+    token.style.borderRadius = `50%`;
+  }
+  token.style.backgroundColor = `${toolConfig.tcolor}`;
+  token.draggable = true;
+  const tokensContainer = document.querySelector('.tokens-container');
+  tokensContainer.append(token);
 })

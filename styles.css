@@ -70,6 +70,12 @@ h2 {
   transform-origin: 0 0;
 }
 
+#tokens {
+  border-bottom: 1px solid rgb(228, 228, 228);
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+}
+
 input:focus {
   outline: none;
   border: 1.5px solid rgb(105, 208, 255);
@@ -81,7 +87,7 @@ label {
 
 /* color preview */
 
-#color-preview {
+#color-preview, #tcolor-preview{
   width: 20px;
   height: 20px;
   border: 1px solid gray;
@@ -123,4 +129,10 @@ label {
   100% {
     transform: scale(1);
   }
+}
+
+.tokens-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100px;
 }
